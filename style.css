@@ -1,0 +1,114 @@
+/* Basic page setup */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #74b9ff, #0984e3);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main app card */
+.weather-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Search input and button layout */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* CRITICAL: This container is the anchor for the 'x' button */
+.input-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px;
+    padding-right: 35px; /* Leaves room so text doesn't type under the 'x' */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* The 'x' clear button style */
+.clear-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.clear-btn:hover {
+    color: #333;
+    background: none;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0984e3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #74b9ff;
+}
+
+/* Utility class to hide elements */
+.hidden {
+    display: none !important;
+}
+
+/* Weather info styling */
+#weather-display {
+    margin-top: 20px;
+}
+
+#temp {
+    font-size: 40px;
+    font-weight: bold;
+    color: #2d3436;
+    margin: 10px 0;
+}
+
+#description {
+    color: #636e72;
+    text-transform: capitalize;
+}
+
+.weather-details {
+    margin-top: 15px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+    color: #555;
+}

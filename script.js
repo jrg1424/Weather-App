@@ -9,7 +9,8 @@ const feelsLike = document.getElementById('feels-like');
 const humidity = document.getElementById('humidity');
 const windSpeed = document.getElementById('wind-speed');
 const clearBtn = document.getElementById('clear-btn');
-const forecastContainer = document.getElementById('forecast-container'); // Added selector
+const forecastContainer = document.getElementById('forecast-container');
+const weatherIcon = document.getElementById('weather-icon'); // Added Weather Icon element
 
 // REPLACE THIS with your actual API key from OpenWeatherMap
 const apiKey = "c111986ba7b4f57fa1f85aecc12d4560"; 
@@ -77,6 +78,11 @@ async function getWeather(city) {
         humidity.textContent = `Humidity: ${currentData.main.humidity}%`;
         windSpeed.textContent = `Wind: ${Math.round(currentData.wind.speed)} mph`;
 
+        // Update the main weather icon
+        const iconCode = currentData.weather[0].icon;
+        weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+        weatherIcon.alt = currentData.weather[0].description;
+
         // Process and display the 5-day forecast
         displayForecast(forecastData);
 
@@ -100,11 +106,16 @@ function displayForecast(data) {
         const date = new Date(item.dt * 1000);
         const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
 
+        //Weather Icon for each forecast card
+        const forecastIconCode = item.weather[0].icon; 
+    
+
         // Create HTML structure for each individual forecast card
         const card = document.createElement('div');
         card.classList.add('forecast-card');
         card.innerHTML = `
             <div class="day">${dayName}</div>
+            <img class="forecast-icon" src="https://openweathermap.org/img/wn/${forecastIconCode}@2x.png" alt="${item.weather[0].main}">
             <div class="temp">${Math.round(item.main.temp)}°F</div>
             <div class="desc">${item.weather[0].main}</div>
         `;

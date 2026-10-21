@@ -9,6 +9,7 @@ const feelsLike = document.getElementById('feels-like');
 const humidity = document.getElementById('humidity');
 const windSpeed = document.getElementById('wind-speed');
 const clearBtn = document.getElementById('clear-btn');
+const forecastContainer = document.getElementById('forecast-container'); // Added selector
 
 // REPLACE THIS with your actual API key from OpenWeatherMap
 const apiKey = "c111986ba7b4f57fa1f85aecc12d4560"; 
@@ -48,26 +49,36 @@ cityInput.addEventListener('keypress', (event) => {
     }
 });
 
-// Function to fetch current weather data
+// Function to fetch current weather data AND 5-day forecast
 async function getWeather(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    const currentUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
+    
 
     try {
-        const response = await fetch(url);
+        // Fetch both resources in parallel
+        const [currentResponse, forecastResponse] = await Promise.all([
+            fetch(currentUrl),
+            fetch(forecastUrl)
+        ]);
         
-        if (!response.ok) {
+        if (!currentResponse.ok || !forecastResponse.ok) {
             throw new Error("City not found");
         }
 
-        const data = await response.json();
+        const currentData = await currentResponse.json();
+        const forecastData = await forecastResponse.json();
         
         // Update current weather UI
-        cityName.textContent = data.name;
-        temp.textContent = `${Math.round(data.main.temp)}°F`;
-        description.textContent = data.weather[0].description;
-        feelsLike.textContent = `Feels like: ${Math.round(data.main.feels_like)}°F`;
-        humidity.textContent = `Humidity: ${data.main.humidity}%`;
-        windSpeed.textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
+        cityName.textContent = currentData.name;
+        temp.textContent = `${Math.round(currentData.main.temp)}°F`;
+        description.textContent = currentData.weather[0].description;
+        feelsLike.textContent = `Feels like: ${Math.round(currentData.main.feels_like)}°F`;
+        humidity.textContent = `Humidity: ${currentData.main.humidity}%`;
+        windSpeed.textContent = `Wind: ${Math.round(currentData.wind.speed)} mph`;
+
+        // Process and display the 5-day forecast
+        displayForecast(forecastData);
 
         weatherDisplay.classList.remove('hidden');
 
@@ -75,4 +86,29 @@ async function getWeather(city) {
         alert("Could not find that city. Please check the spelling or try again!");
         console.error(error);
     }
+}
+
+// Helper function to build the forecast layout
+function displayForecast(data) {
+    forecastContainer.innerHTML = ''; // Clear previous forecast cards
+
+    // Filter data to only grab the forecast entry closest to 12:00 PM (noon) each day
+    const dailyData = data.list.filter(item => item.dt_txt.includes("12:00:00"));
+
+    dailyData.forEach(item => {
+        // Convert timestamp (dt) into a readable Short Day Name (e.g., "Mon")
+        const date = new Date(item.dt * 1000);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+
+        // Create HTML structure for each individual forecast card
+        const card = document.createElement('div');
+        card.classList.add('forecast-card');
+        card.innerHTML = `
+            <div class="day">${dayName}</div>
+            <div class="temp">${Math.round(item.main.temp)}°F</div>
+            <div class="desc">${item.weather[0].main}</div>
+        `;
+
+        forecastContainer.appendChild(card);
+    });
 }

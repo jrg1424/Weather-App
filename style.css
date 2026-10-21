@@ -15,7 +15,7 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 300px;
+    width: 500px;
     text-align: center;
 }
 
@@ -111,4 +111,49 @@ button:hover {
     justify-content: space-around;
     font-size: 13px;
     color: #555;
+}
+/* 5 Day Forecast Section */
+.forecast-section {
+    margin-top: 25px;
+    border-top: 1px solid #dfe6e9;
+    padding-top: 15px;
+}
+
+.forecast-section h3 {
+    color: #2d3436;
+    margin-bottom: 15px;
+}
+
+.forecast-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    overflow-x: auto; /* Adds swiping if the screen is too small */
+}
+
+.forecast-card {
+    background: #f1f2f6;
+    padding: 10px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+    min-width: 55px;
+}
+
+.forecast-card .day {
+    font-weight: bold;
+    color: #2d3436;
+    font-size: 0.9rem;
+}
+
+.forecast-card .temp {
+    color: #0984e3;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.forecast-card .desc {
+    font-size: 0.75rem;
+    color: #636e72;
+    text-transform: capitalize;
 }

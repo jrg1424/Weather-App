@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "env": "^0.0.2"
+  },
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A lightweight weather dashboard built with HTML, CSS, and JavaScript. This project lets users search for a city and view the current weather conditions in a clean, simple interface.",
+  "main": "script.js",
+  "devDependencies": {
+    "vite": "^8.3.5"
+  },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+  
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrg1424/Weather-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jrg1424/Weather-App/issues"
+  },
+  "homepage": "https://github.com/jrg1424/Weather-App#readme"
+}

@@ -68,3 +68,6 @@ The app uses imperial units, so temperature is displayed in Fahrenheit and wind 
 - Add geolocation so weather can be checked automatically
 - Improve accessibility and validation
 - Move the API key into a safer environment-based configuration for production use
+
+## To Run
+- npm run dev

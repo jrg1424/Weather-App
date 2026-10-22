@@ -1,0 +1,4 @@
+.env
+API_KEY = "c111986ba7b4f57fa1f85aecc12d4560"
+node_modules/
+.env

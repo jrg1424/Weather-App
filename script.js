@@ -1,3 +1,6 @@
+//loads variables immediately when the page loads
+//import 'dotenv/config';
+
 // Grab HTML elements so we can interact with them
 const cityInput = document.getElementById('city-input');
 const searchBtn = document.getElementById('search-btn');
@@ -13,7 +16,7 @@ const forecastContainer = document.getElementById('forecast-container');
 const weatherIcon = document.getElementById('weather-icon'); // Added Weather Icon element
 
 // REPLACE THIS with your actual API key from OpenWeatherMap
-const apiKey = "c111986ba7b4f57fa1f85aecc12d4560"; 
+const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
 
 // Show or hide the 'x' clear button depending on whether text is typed
 cityInput.addEventListener('input', () => {
